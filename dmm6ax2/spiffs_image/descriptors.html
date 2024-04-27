@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+
+<style>
+.input {
+	width: 98%
+}
+</style>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="styles.css">
+<title>Settings</title>
+<meta name="author" content="dig" />
+<script src="js/descriptors.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- Date: 2017-11-18 -->
+
+</head>
+<body>
+<body onload="getDescriptors()"></body>
+
+<form name="descriptorValues" action="">
+	<h1>Descriptors</h1>
+</form>
+
+<form name="descriptors">
+	<p></p>
+	<table id="descriptorTable"></table>
+	<p>
+		<a  style=" font-size: 2.5em;" 
+			id="a_btn_writetofile" download="descriptors.dmm" href="#"
+			class="btn btn-primary" onclick="exportFile ( 'a_btn_writetofile')">
+			Download from board</a>
+	<p></p>
+<!--  browse button -->
+	<input type="file" id="upload" accept=".dmm">   
+
+	<script type="text/javascript"> 
+        	document.getElementById('upload').addEventListener('change', function() { 
+                     var fr=new FileReader(); 
+                     var fileInput = this.files[0];
+           			 fr.onload=function(){ 
+            			text = fr.result;
+        				displayDescriptors(text);
+        				descriptors = text;    
+        				upload(fileInput);
+           			 }
+	                 fr.readAsText(this.files[0]); 
+        	})
+    </script>
+	</div>
+	<!-- 			<input type="button" onclick = saveToFile() value="Save to file"> -->
+	<!-- 		<input type="button" onclick=restoreFromFile value="Restore from file"> -->
+	</p>
+
+</form>
+<p>
+
+<h1>.</h1>
+<p>
+
+<li><a href="./dmm.html"> Back</a>
+
+	</p>
+	</p>
+
+
+	</body>
+
+</html>
+

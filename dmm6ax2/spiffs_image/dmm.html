@@ -1,0 +1,69 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>DMM</title>
+
+
+<script src="js/dmm.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/common.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<link rel="stylesheet" type="text/css" href="styles.css">
+		<script src="js/dmm.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>
+	<p id="demo"></p>
+</body>
+<body onload="startDMM()">
+
+</body>
+<p></p>
+<form name="ActualValues" action="">
+	<table>
+		<tr>
+			<th class="name" /th></th>
+			<th class="valueLong" /th></th>
+			<th class="name" /th></th>
+			<th class="value" /th></th>
+		</tr>
+		<tr>
+			<td><label>Averaged: </label></td>
+			<td><input type="text" name="AveragedValue" readonly /></td>
+		</tr>
+		<tr>
+			<td><label> Momentary: </label></td>
+			<td><input type="text" name="MomentaryValue" readonly /></td>
+		</tr>
+	</table>
+</form>
+
+<form action="/action_page.php" name="calibrationSettings">
+
+	<h1>Calibration</h1>
+	<table>
+		<thead>
+			<p></p>
+			<tr>
+				<th class="name" /th></th>
+				<th class="valueLong" /th></th>
+				<th class="name" /th></th>
+				<th class="value" /th></th>
+			</tr>
+			<tr>
+				<td><label for="SSID">Value: </label></td>
+				<td><input class="input" type="text" name="calValue" /></td>
+			</tr>
+		</thead>
+	</table>
+	<p></p>
+	<p>
+		<input type="submit" value="Submit">
+	</p>
+</form>
+<p></p>
+</html>

@@ -1,0 +1,41 @@
+<html>
+
+<head>
+	<!-- <link rel="stylesheet" type="text/css" href="styles.css"> -->
+
+	<link rel="stylesheet" type="text/css" href="styles.css">
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+	<script src="js/chart.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/common.js" type="text/javascript" charset="utf-8"></script>
+
+	<script type="text/javascript">
+		google.charts.load('current', {'packages': ['corechart']});
+		google.charts.setOnLoadCallback(initChart);
+	</script>
+</head>
+<table>
+	<tr>
+		<td> <label id="valueDisplay" </label></td>
+		<td> <label id="unitDisplay" </label></td>
+	</tr>
+</table>
+
+<body>
+	<div id="chart" style="width: 900px; height: 500px"></div>
+
+	<button id = 'startStopButton' class="button-3" onclick="startStop()">stop</button>
+	<button class="button-3" onclick="clearLog()">log wissen</button>
+	<button class="button-3" onclick="clearChart()">grafiek wissen</button>
+
+	<table id="settingstable">
+	</table>
+
+</body>
+<!-- <body onload="printBtn();"> -->
+</body>
+
+</html>
+
+
+
