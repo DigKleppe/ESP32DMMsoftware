@@ -101,7 +101,7 @@ const char* startCGIscript(int iIndex, char *pcParam) {
 		break;
 	case 2:  // action script
 		readActionScript(pcParam);
-		return ("/spiffs/dmm.html");
+		return ("/spiffs/cal.html");
 		break;
 
 	default:

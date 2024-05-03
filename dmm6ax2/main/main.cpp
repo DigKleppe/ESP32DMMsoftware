@@ -144,9 +144,9 @@ extern "C" void app_main()
 	Serial.println("Connecting to WiFi..");
 	display.println("Connecting to WiFi..");
 #endif
-	display.showMssg(2000);
+	display.showMssg(1000);
 
-	vTaskDelay(500);
+	vTaskDelay(1000);
 	xTaskCreate(&DMMTask, "DMM",4000, NULL, 1, &taskHandles[2]);
 #ifdef USE_WIFI
 	// show network stuff
@@ -173,8 +173,8 @@ extern "C" void app_main()
 			display.println("Waiting for ESP touch..");
 			break;
 		}
-		display.showMssg(1000);
-		vTaskDelay(1000);
+		display.showMssg(2000);
+		vTaskDelay(2000);
 	} while ((connectStatus != IP_RECEIVED) && (timeout-- >= 0));
 
 #endif
