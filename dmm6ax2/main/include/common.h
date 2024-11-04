@@ -16,7 +16,9 @@ typedef enum { INPUT_V, INPUT_A, INPUT_OHM } input_t;
 typedef enum { RESULT_OK, RESULT_ERROR } result_t;
 typedef enum { DIRECTION_NONE, DIRECTION_UP, DIRECTION_DOWN } direction_t;
 
-extern "C" xQueueHandle keyEventQueue;
+//extern "C" xQueueHandle keyEventQueue;
+extern "C" QueueHandle_t keyEventQueue;
+
 
 #define LV_SYMBOL_OHM    "\xef\xCE\xA9"  //0x3A9
 #define LV_SYMBOL_MICRO  "\xef\xCE\xBC" //0x3BC

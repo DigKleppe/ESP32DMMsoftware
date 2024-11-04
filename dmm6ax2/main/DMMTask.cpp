@@ -267,29 +267,29 @@ void DMMTask(void *pvParameters) {
 				dmm->setDataRate((ad1256DataRate_t) userSettings.conversionSpeed);
 				doSetDataRate = false;
 			}
-if (0){
-		//	if (gpio_get_level(OVERRANGEPIN) == 0) {
-				if (avgCntr ==0)
-					display.printMeasurement(OVERRANGEVALUE, NULL, NULL, DISPLAY_ITEM_MEASLINE1);
-				if (autoRange) {
-					int lastRange = dmm->getCurrentRange();
-					bool stop = false;
-					do {
-						if (dmm->changeRange(DIRECTION_UP) == lastRange) // cannot go higher
-							stop = true;
-						else {
-							vTaskDelay(20);
-							lastRange = dmm->getCurrentRange();
-						}
-					} while (!stop && gpio_get_level(OVERRANGEPIN) == 0);
-
-					if (gpio_get_level(OVERRANGEPIN) == 0) {
-						isOverRange = true;
-
-					} else
-						isOverRange = false;
-				}
-			} else {
+//if (0){
+//		//	if (gpio_get_level(OVERRANGEPIN) == 0) {
+//				if (avgCntr ==0)
+//					display.printMeasurement(OVERRANGEVALUE, NULL, NULL, DISPLAY_ITEM_MEASLINE1);
+//				if (autoRange) {
+//					int lastRange = dmm->getCurrentRange();
+//					bool stop = false;
+//					do {
+//						if (dmm->changeRange(DIRECTION_UP) == lastRange) // cannot go higher
+//							stop = true;
+//						else {
+//							vTaskDelay(20);
+//							lastRange = dmm->getCurrentRange();
+//						}
+//					} while (!stop && gpio_get_level(OVERRANGEPIN) == 0);
+//
+//					if (gpio_get_level(OVERRANGEPIN) == 0) {
+//						isOverRange = true;
+//
+//					} else
+//						isOverRange = false;
+//				}
+//			} else {
 				if (waits) // wait for autocal to finish
 					waits--;
 				else {
@@ -298,7 +298,6 @@ if (0){
 						dmm->doSelfCal();
 						doSelfcal = false;
 					} else {
-					//	DMMvalue = dmm->read();
 						unit = (char*) dmm->getCurrentUnitText();
 						unitFiltered = (char*) dmm->getCurrentUnitTextFiltered();  // get text without special spaces
 						if (dmm->getCurrentType() == type_Ohm)
@@ -309,21 +308,22 @@ if (0){
 							if (formatPrecision < 0)
 								formatPrecision = 0;
 							sprintf(formatStr, "%%%d.%df", formatWidth, formatPrecision);
-							if (avgCntr ==0)
+							if (avgCntr ==0) {
 								display.printMeasurement(DMMvalue, unit, formatStr, DISPLAY_ITEM_MEASLINE1);
+								logValue.measValue = (float) DMMvalue;
+								strcpy(logValue.unit, unitFiltered);
+								addToLog(logValue);
+							}
 							sprintf(measValues.averegedValue, formatStr, DMMvalue);  // read by cgi
 							strcat(measValues.averegedValue, " ");
 							strcat(measValues.averegedValue, unitFiltered);
 #ifdef USE_WIFI
 							sprintf(udpTxBuf, "%f;", DMMvalue);
-
-							logValue.measValue = (float) DMMvalue;
-							strcpy(logValue.unit, unitFiltered);
-							addToLog(logValue);
-					//		appendeMeasValueToCGIBuffer ( (float) DMMvalue);
+//							logValue.measValue = (float) DMMvalue;
+//							strcpy(logValue.unit, unitFiltered);
+//							addToLog(logValue);
 #endif
 							DMMvalue = dmm->getRealTimeValue();
-							//	display.printMeasurement(DMMvalue, unit, formatStr, DISPLAY_ITEM_MEASLINE2);
 							sprintf(measValues.momentaryValue, formatStr, DMMvalue);
 							strcat(measValues.momentaryValue, " ");
 							strcat(measValues.momentaryValue, unitFiltered);
@@ -346,9 +346,11 @@ if (0){
 					}
 				}
 			}
-		}
+	//	}
 		if (avgCntr ==0)
-			avgCntr = userSettings.conversionSpeed;
+//			avgCntr = userSettings.conversionSpeed;
+			avgCntr = userSettings.averages;
+
 		if (newCalValueReceived) { // from cgi
 			newCalValueReceived = false;
 			dmm->calibrateCurrentRange(calValue);
@@ -387,7 +389,7 @@ if (0){
 
 int printLog(log_t * logToPrint, char *pBuffer) {
 	int len;
-	len = sprintf(pBuffer, "%ld,", (unsigned long )logToPrint->timeStamp);
+	len = sprintf(pBuffer, "%d,", logToPrint->timeStamp);
 	len += sprintf(pBuffer + len, "%f,", logToPrint->measValue);
 	len += sprintf(pBuffer + len, "%s\n", logToPrint->unit);
 	return len;

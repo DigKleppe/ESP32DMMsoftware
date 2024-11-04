@@ -6,6 +6,7 @@ source $HOME/projecten/esp32/esp-idf/export.sh
 	cmake .. -G Ninja   # or 'Unix Makefiles'
 	ninja
  */
+// compiled with idf 4.4.7
 
 
 #include "DMM.h"
@@ -45,8 +46,10 @@ DMM * dmm;
 bool stopWifi;
 xQueueHandle keyEventQueue;
 #define NO_TASKS 3
-
 char ipAddrStr[16];
+uint32_t timeStamp;
+
+TimerHandle_t xTimer;
 
 /* Function to initialize SPIFFS */
 static esp_err_t init_spiffs(void)
@@ -101,6 +104,14 @@ static esp_err_t i2c_master_init(void)
 	return i2c_driver_install(i2c_master_port, conf.mode, 0,0, 0);
 }
 
+void vTimerCallback( TimerHandle_t xTimer )
+{
+	timeStamp++;
+}
+
+ const uint32_t ulMaxExpiryCountBeforeStopping = 10;
+
+ uint32_t ulCount;
 
 //=============
 extern "C" void app_main()
@@ -134,17 +145,19 @@ extern "C" void app_main()
 	while (!displayReady)// wait until LCD is ready and SPI is initialized
 		vTaskDelay(100);
 
-	xTaskCreate(clockTask, "clock", 1024, NULL, 0, NULL);
+	xTaskCreate(clockTask, "clock", 1024, NULL, 2, NULL);
 
 	xTaskCreatePinnedToCore(guiTask, "gui", 4000, NULL,0,&taskHandles[1], 1);
 	display.printStatusLine("..Starting..");
-	display.println("DMM softwareversion 3.0\n");
+	display.println("DMM softwareversion 3.1\n");
 
 #ifdef USE_WIFI
 	Serial.println("Connecting to WiFi..");
 	display.println("Connecting to WiFi..");
 #endif
 	display.showMssg(1000);
+
+    xTimer = xTimerCreate ("Timer",10 ,pdTRUE,( void * ) 0, vTimerCallback);
 
 	vTaskDelay(1000);
 	xTaskCreate(&DMMTask, "DMM",4000, NULL, 1, &taskHandles[2]);

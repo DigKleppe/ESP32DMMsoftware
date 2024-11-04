@@ -10,18 +10,19 @@
 
 #include <stdint.h>
 #include <time.h>
-#include <sys/time.h>
 
-#define MAXLOGVALUES	1024
+
+#define MAXLOGVALUES	3*1024
 
 typedef struct {
-	time_t timeStamp;
+	uint32_t timeStamp; // in 10ms
 	float measValue;
 	char unit[4];
 } log_t;
 
 extern int logRxIdx;
 extern int logTxIdx;
+extern uint32_t timeStamp;
 
 int getAllLogsScript(char *pBuffer, int count);
 int getNewLogsScript(char *pBuffer, int count);

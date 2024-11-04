@@ -17,8 +17,7 @@ static log_t measLog[ MAXLOGVALUES];
 
 void addToLog(log_t logValue) {
 	measLog[logTxIdx] = logValue;
-	time(&logValue.timeStamp);
-	time(&measLog[logTxIdx].timeStamp);
+	measLog[logTxIdx].timeStamp = timeStamp;
 	logTxIdx++;
 	if (logTxIdx >= MAXLOGVALUES)
 		logTxIdx = 0;
