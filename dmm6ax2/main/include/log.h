@@ -12,7 +12,7 @@
 #include <time.h>
 
 
-#define MAXLOGVALUES	4*1024
+#define MAXLOGVALUES	5*1024
 
 typedef struct {
 	uint32_t timeStamp; // in 10ms

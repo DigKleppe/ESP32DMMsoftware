@@ -146,6 +146,8 @@ void DMM::calibrateCurrentRange(double calValue) {
 	default: {
 		volt = (5.0 * ((double) (adcResult) / 0x7FFFFF)) / (double) div;
 		double calFactor = calValue / volt;
+		if ( range == RANGE_250mV)
+			calFactor *= 10;// gain = 10
 		setCurrentGain(calFactor);
 		calibrationSettings.calFactor[range] = calFactor;
 		printf("\n%.*e\n", DBL_DIG - 1, volt);
@@ -168,13 +170,12 @@ double DMM::read(void) {
 	int32_t adcResult;
 	double volt =0;
 	static int autoDelay = 5;
-
-
 	int div = 1 << PGA;
 
 	ads1256->readData(&adcResult);
 	realTimeValue = adcResult;
 	rawValue = adcResult;
+	int range = getCurrentRange();
 
 	// range is from  -8388608 to + 8388608 ( 0x800000 )
 	if ( (adcResult <= -8388600) || (adcResult > 8388600)) { // overrange
@@ -189,7 +190,6 @@ double DMM::read(void) {
 	}
 
 	else {
-		int range = getCurrentRange();
 		printf("\n%d \t ", adcResult);
 		if (AC)//  AC is referenced from 0V ( AGND ) instead of 2.5,
 			adcResult = 0x400000-adcResult; // negate
@@ -255,7 +255,8 @@ double DMM::read(void) {
 				autoDelay = userSettings.conversionSpeed;
 		}
 	}
-
+	if ( range == RANGE_250mV)  // gain =10
+		volt /= 10;
 	return volt;
 }
 
