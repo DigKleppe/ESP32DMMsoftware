@@ -145,7 +145,7 @@ extern "C" void app_main()
 	while (!displayReady)// wait until LCD is ready and SPI is initialized
 		vTaskDelay(100);
 
-	xTaskCreate(clockTask, "clock", 1024, NULL, 2, NULL);
+	xTaskCreate(clockTask, "clock", 1024, NULL, 0, NULL);
 
 	xTaskCreatePinnedToCore(guiTask, "gui", 4000, NULL,0,&taskHandles[1], 1);
 	display.printStatusLine("..Starting..");
@@ -157,7 +157,8 @@ extern "C" void app_main()
 #endif
 	display.showMssg(1000);
 
-    xTimer = xTimerCreate ("Timer",10 ,pdTRUE,( void * ) 0, vTimerCallback);
+   xTimer = xTimerCreate ("Timer",10 ,pdTRUE,( void * ) 0, vTimerCallback);
+   xTimerStart( xTimer, 0 );
 
 	vTaskDelay(1000);
 	xTaskCreate(&DMMTask, "DMM",4000, NULL, 1, &taskHandles[2]);

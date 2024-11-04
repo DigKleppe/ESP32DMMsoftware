@@ -109,16 +109,16 @@ function plotArray(str) {
 	if (nrPoints > 0) {
 
 		arr = arr2[nrPoints - 1].split(",");
-		measTimeLastSample = arr[0];  // can be unadjusted time in seconds
+		measTimeLastSample = arr[0];  // can be unadjusted time in 10 ms units
 		document.getElementById('valueDisplay').innerHTML = arr[1] + " " + arr[2]; // value of last measurement
 
 		var sec = Date.now();//  / 1000;  // mseconds since 1-1-1970 
-		timeOffset = sec - parseFloat(measTimeLastSample) * 1000;
+		timeOffset = sec - parseFloat(measTimeLastSample) * 10;
 
 		for (var p = 0; p < nrPoints; p++) {
 			arr = arr2[p].split(",");
 			if (arr.length >= 1) {
-				plot(1, arr[1], (parseFloat(arr[0]) * 1000) + timeOffset);
+				plot(1, arr[1], (parseFloat(arr[0]) * 10) + timeOffset);
 			}
 		}
 		chart.draw(chartData, options);
