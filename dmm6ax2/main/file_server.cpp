@@ -297,7 +297,8 @@ static esp_err_t download_get_handler(httpd_req_t *req)
 	}
 	if( foundCGI) {
 		//	ESP_LOGI(TAG, "Sending CG responsefile : %s ...", filename);
-	//	printf( "Sending CG responsefile : %s ...", filename);
+printf( "Sending CG responsefile : %s ...", filename);
+
 		sendFile = false;
 
 		if (stat(filename, &file_stat) == -1) {
@@ -321,7 +322,6 @@ static esp_err_t download_get_handler(httpd_req_t *req)
 						return ESP_FAIL;
 					}
 				}
-
 				/* Keep looping till the whole file is sent */
 			} while (chunksize != 0);
 		}

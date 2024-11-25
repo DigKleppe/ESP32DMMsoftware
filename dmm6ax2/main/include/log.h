@@ -12,7 +12,7 @@
 #include <time.h>
 
 
-#define MAXLOGVALUES	5*1024
+#define MAXLOGVALUES	3*1024
 
 typedef struct {
 	uint32_t timeStamp; // in 10ms
@@ -27,6 +27,7 @@ extern uint32_t timeStamp;
 int getAllLogsScript(char *pBuffer, int count);
 int getNewLogsScript(char *pBuffer, int count);
 void addToLog( log_t logValue);
+void testLog( void) ;
 
 
 #endif /* MAIN_INCLUDE_LOG_H_ */

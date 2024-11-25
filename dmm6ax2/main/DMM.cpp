@@ -190,7 +190,7 @@ double DMM::read(void) {
 	}
 
 	else {
-		printf("\n%d \t ", adcResult);
+//		printf("\n%d \t ", adcResult);
 		if (AC)//  AC is referenced from 0V ( AGND ) instead of 2.5,
 			adcResult = 0x400000-adcResult; // negate
 		if (averages > 1) {
@@ -206,8 +206,7 @@ double DMM::read(void) {
 				setCurrentDCoffset(adcResult);
 				calibrationSettings.DCoffset[range] = adcResult;
 			}
-
-			printf("%d  %d \n ", PGA, adcResult);
+		//	printf("%d  %d \n ", PGA, adcResult);
 		}
 
 		if (AC) {
@@ -217,7 +216,7 @@ double DMM::read(void) {
 			adcResult -= getCurrentDCoffset();
 			realTimeValue -= getCurrentDCoffset();
 		}
-		printf(" %d ", adcResult);
+//		printf(" %d ", adcResult);
 
 		actualVoltage = (5.0 * ((double) (adcResult) / 0x7FFFFF)) / (double) div;
 		volt = actualVoltage * getCurrentDCGain();

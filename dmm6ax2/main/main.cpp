@@ -7,13 +7,14 @@ source $HOME/projecten/esp32/esp-idf/export.sh
 	ninja
  */
 // compiled with idf 4.4.7
-
+//#define USE_STATS
 
 #include "DMM.h"
 #include "DVMdisplay.h"
 #include "include/settings.h"
 #include "MenuSettings.h"
 #include "wifiConnect.h"
+#include "log.h"
 
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
@@ -190,6 +191,8 @@ extern "C" void app_main()
 		display.showMssg(2000);
 		vTaskDelay(2000);
 	} while ((connectStatus != IP_RECEIVED) && (timeout-- >= 0));
+
+//	testLog( );
 
 #endif
 	while (1) {

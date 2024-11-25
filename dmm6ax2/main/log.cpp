@@ -7,6 +7,7 @@
 #include "log.h"
 #include <stdio.h>
 #include <string.h>
+#include <math.h>
 
 int printLog(log_t *logToPrint, char *pBuffer);
 extern int scriptState;
@@ -98,4 +99,15 @@ int clearLogScript(char *pBuffer, int count) {
 		return 3;
 	}
 	return 0;
+}
+
+void testLog( void) {
+	log_t testlog;
+	testlog.unit[0]= 'V';
+	testlog.unit[1]= 0;
+	for ( int n = 0; n < MAXLOGVALUES; n++) {
+		testlog.measValue = sin ((float)n / 100);
+		timeStamp++;
+		addToLog(testlog);
+	}
 }
