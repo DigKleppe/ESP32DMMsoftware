@@ -389,7 +389,7 @@ void DMMTask(void *pvParameters) {
 
 int printLog(log_t * logToPrint, char *pBuffer) {
 	int len;
-	len = sprintf(pBuffer, "%d,", logToPrint->timeStamp);
+	len = sprintf(pBuffer, "%d,", (int) logToPrint->timeStamp);
 	len += sprintf(pBuffer + len, "%f,", logToPrint->measValue);
 	len += sprintf(pBuffer + len, "%s\n", logToPrint->unit);
 	return len;

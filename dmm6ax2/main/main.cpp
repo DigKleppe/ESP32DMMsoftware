@@ -11,6 +11,7 @@ source $HOME/projecten/esp32/esp-idf/export.sh
 
 #include "DMM.h"
 #include "DVMdisplay.h"
+#include "hal/i2c_types.h"
 #include "include/settings.h"
 #include "MenuSettings.h"
 #include "wifiConnect.h"
@@ -88,7 +89,7 @@ static esp_err_t init_spiffs(void)
 }
 static esp_err_t i2c_master_init(void)
 {
-	int i2c_master_port = 1;   // I2C_MASTER_NUM;
+	i2c_port_t i2c_master_port = (i2c_port_t) 1;   // I2C_MASTER_NUM;
 	i2c_config_t conf;
 	conf.mode = I2C_MODE_MASTER;
 	conf.sda_io_num = 21;
@@ -146,7 +147,7 @@ extern "C" void app_main()
 	while (!displayReady)// wait until LCD is ready and SPI is initialized
 		vTaskDelay(100);
 
-	xTaskCreate(clockTask, "clock", 1024, NULL, 0, NULL);
+	xTaskCreate(clockTask, "clock", 2048, NULL, 0, NULL);
 
 	xTaskCreatePinnedToCore(guiTask, "gui", 4000, NULL,0,&taskHandles[1], 1);
 	display.printStatusLine("..Starting..");

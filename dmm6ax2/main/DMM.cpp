@@ -307,7 +307,7 @@ int DMM::updateDescriptors(void) {
 						p++;
 					}
 					if (!stop) {
-						int n = sscanf(p, "%d,%d,%lf,%lf", &DCoffset, &ACoffset, &DCgain, &ACgain);
+						int n = sscanf(p, "%d,%d,%lf,%lf", (int*)&DCoffset, (int*)&ACoffset, &DCgain, &ACgain);
 						if (n == 4) {
 							calibrationSettings.DCoffset[num] = DCoffset;
 							calibrationSettings.ACoffset[num] = ACoffset;

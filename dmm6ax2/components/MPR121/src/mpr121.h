@@ -10,6 +10,7 @@
 
 #include <stdint.h>
 #include "driver/i2c.h"
+#include "hal/i2c_types.h"
 
 
 #define MPR_ADDRESS  		0x5A
@@ -83,7 +84,7 @@ public:
 
 private:
 	uint8_t i2caddr = 0;
-	i2c_port_t i2cportNum = 0;
+	i2c_port_t i2cportNum = (i2c_port_t)0;
 	esp_err_t err = ESP_OK;
 
 	esp_err_t write( uint8_t register_address,uint8_t *data, uint8_t byte_count);

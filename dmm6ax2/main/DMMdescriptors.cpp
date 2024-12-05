@@ -22,8 +22,8 @@ int DMMdescriptors::printDescriptor( char * buffer ,int idx){
 	len = sprintf (buffer,"%c," , dmmDescriptorTable[idx].type);
 	len +=  sprintf (buffer+len,"%s," , dmmDescriptorTable[idx].unitTextFiltered);
 	len +=  sprintf (buffer+len,"%s," , dmmDescriptorTable[idx].rangeText);
-	len +=  sprintf (buffer+len,"%d," , dmmDescriptorTable[idx].DCoffset);
-	len +=  sprintf (buffer+len,"%d," , dmmDescriptorTable[idx].ACoffset);
+	len +=  sprintf (buffer+len,"%d," ,(int) dmmDescriptorTable[idx].DCoffset);
+	len +=  sprintf (buffer+len,"%d," ,(int) dmmDescriptorTable[idx].ACoffset);
 	len +=  sprintf (buffer+len,"%f," , dmmDescriptorTable[idx].DCgain);
 	len +=  sprintf (buffer+len,"%f," , dmmDescriptorTable[idx].ACgain);
 	return len;

@@ -93,7 +93,7 @@ int clearLogScript(char *pBuffer, int count) {
 	if (scriptState == 0) { // find oldest value in cyclic logbuffer
 		logRxIdx = 0;
 		logTxIdx = 0;
-		measLog[0].timeStamp = 0;
+		memset(&measLog, 0, sizeof( measLog));
 		strcpy(pBuffer, "OK");
 		scriptState++;
 		return 3;

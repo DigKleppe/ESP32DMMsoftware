@@ -157,7 +157,7 @@ void MenuSettings::event_handler(lv_obj_t *obj, lv_event_t event) {
 
 		key = lv_indev_get_key(kb_indev);
 		if (key) {
-			printf("Key: %s  k %d  e %d\n", lv_list_get_btn_text(obj), key, event);
+	//		printf("Key: %s  k %d  e %d\n", lv_list_get_btn_text(obj), key, event);
 			switch (key) {
 			case LV_KEY_DOWN:
 				nextItem();
